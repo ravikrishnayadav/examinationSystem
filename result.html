@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KGCET RESULTS</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            width: 100%;
+            height: 100px; /* Adjust the height as needed */
+            background: url('banner.jpg') center/cover no-repeat; /* Replace 'banner.jpg' with your actual image path */
+            text-align: center;
+            color: #fff;
+            padding-top: 45px;
+        }
+
+        .container {
+            padding: 80px;
+        }
+
+        .hallticket-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .hallticket-info h3 {
+            margin-top: 0;
+        }
+
+        .candidate-info {
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 600px; /* Reduce the max-width */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden; /* Ensure the photo stays within the boundaries */
+        }
+
+        .candidate-info img {
+            float: right; /* Float the photo to the right */
+            margin-left: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 100px; /* Reduce the max-width */
+        }
+
+        .candidate-info p {
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .print-btn-container {
+            text-align: center;
+        }
+
+        .print-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .print-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<header>
+ 
+</header>
+<div class="container">
+    
+    <div class="hallticket-info">
+        <h3>Hall Ticket Number: KG32123</h3>
+    </div>
+    <div class="candidate-info">
+        <img src="photo.jpeg" alt="candidate photo" width="100px" height="100px">
+        <p><strong>Registration No:</strong> KG212321</p>
+        <p><strong>Candidate Name:</strong> You know</p>
+        <p><strong>Rank:</strong> 1</p>
+    </div>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Total Marks</th>
+                <th>Achieved Marks</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Maths</td>
+                <td>100</td>
+                <td>85</td>
+               
+            </tr>
+            <tr>
+                <td>Physics</td>
+                <td>100</td>
+                <td>90</td>
+              
+            </tr>
+            <tr>
+                <td>Chemistry</td>
+                <td>100</td>
+                <td>78</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>300</td>
+                <td>211</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="print-btn-container">
+        <button class="print-btn" onclick="downloadPDF()">Print</button>
+    </div>
+</div>
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function downloadPDF() {
+        window.print();
+    }
+</script>
+</body>
+</html>
