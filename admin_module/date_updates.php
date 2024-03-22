@@ -14,7 +14,6 @@ $previousDates = array(
     'hallTicketDate' => '',
     'resultsDate' => ''
 );
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $servername = "localhost";
     $username = "root";
@@ -26,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-
     $openingDate = $_POST["openingDate"];
     $closingDate = $_POST["closingDate"];
     $hallTicketDate = $_POST["hallTicketDate"];
