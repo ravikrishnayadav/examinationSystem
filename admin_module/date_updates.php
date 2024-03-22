@@ -257,5 +257,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="submit" value="Submit">
         </form>
     </div>
+</body>
+</html>
 
    
