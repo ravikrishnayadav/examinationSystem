@@ -1,183 +1,261 @@
 <?php
 session_start();
-if(!isset($_SESSION['loggedin']))
-{
+if (!isset($_SESSION['loggedin'])) {
     header("Location: index.php");
     exit;
 }
-
 ?>
+
 <?php
-$date=false;
+$dateUpdated = false;
+$previousDates = array(
+    'openingDate' => '',
+    'closingDate' => '',
+    'hallTicketDate' => '',
+    'resultsDate' => ''
+);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Establish database connection (replace with your own credentials)
-    
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "lokesh";
+
     $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
+
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Retrieve form data
     $openingDate = $_POST["openingDate"];
     $closingDate = $_POST["closingDate"];
     $hallTicketDate = $_POST["hallTicketDate"];
     $resultsDate = $_POST["resultsDate"];
 
-    // Prepare SQL statement to update the important_dates table
     $sql = "UPDATE important_dates SET 
             registration_opening_date = '$openingDate',
             registration_closing_date = '$closingDate',
             hall_ticket_release_date = '$hallTicketDate',
             results_release_date = '$resultsDate'
-            WHERE id = 1"; // Assuming there is only one record in the table
+            WHERE id = 1";
 
-    // Execute SQL statement
     if ($conn->query($sql) === TRUE) {
-       $date=true;
+        $dateUpdated = true;
     } else {
         echo "Error updating important dates: " . $conn->error;
     }
 
-    // Close database connection
+    $conn->close();
+} else {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "lokesh";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "SELECT * FROM important_dates WHERE id = 1";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $previousDates['openingDate'] = $row['registration_opening_date'];
+        $previousDates['closingDate'] = $row['registration_closing_date'];
+        $previousDates['hallTicketDate'] = $row['hall_ticket_release_date'];
+        $previousDates['resultsDate'] = $row['results_release_date'];
+    }
+
     $conn->close();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Interface - Update Important Dates</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="//cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css">
-    
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
-<style>
-/* CSS styles for the form */
-
-body {
-    font-family: Arial, sans-serif;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Interface - Update Important Dates</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* CSS styles for the form */
+        body {
+    font-family: 'Arial', sans-serif;
     background-color: #f7f7f7;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    animation: changeBackground 10s infinite alternate; /* Animated background color */
 }
 
-.container {
-    max-width: 500px;
-    margin: 50px auto;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+        @keyframes changeBackground {
+            0% {
+                background-color: #f7f7f7;
+                /* Initial background color */
+            }
 
-h2 {
-    text-align: center;
-    margin-bottom: 30px;
-}
+            50% {
+                background-color: #e6e6e6;
+                /* Midway background color */
+            }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
+            100% {
+                background-color: #f7f7f7;
+                /* Final background color */
+            }
+        }
 
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #fff;
+            /* Set container background color */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: fadeInDown 1s ease;
+            /* Fade in animation */
+        }
 
-input[type="text"] {
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
 
-input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-input[type="submit"]:hover {
-    background-color: #45a049;
-}
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            /* Dark text color */
+        }
 
-.error-message {
-    color: red;
-    font-style: italic;
-    margin-top: 5px;
-}
+        form {
+            display: flex;
+            flex-direction: column;
+        }
 
-</style>
-<script>
-function validateForm() {
-    var openingDate = document.getElementById("openingDate").value;
-    var closingDate = document.getElementById("closingDate").value;
-    var hallTicketDate = document.getElementById("hallTicketDate").value;
-    var resultsDate = document.getElementById("resultsDate").value;
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-    // Validate date format (YYYY-MM-DD)
-    var dateFormat = /^\d{4}-\d{2}-\d{2}$/;
+        .input-group i {
+            margin-right: 10px;
+            color: #555;
+            /* Default icon color */
+        }
 
-    if (!openingDate.match(dateFormat) || !closingDate.match(dateFormat) || !hallTicketDate.match(dateFormat) || !resultsDate.match(dateFormat)) {
-        alert("Please enter dates in the format YYYY-MM-DD");
-        return false;
-    }
+        .input-label {
+            flex: 1;
+            text-align: left;
+        }
 
-    // Convert dates to Date objects for comparison
-    var opening = new Date(openingDate);
-    var closing = new Date(closingDate);
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
 
-    // Validate closing date is after opening date
-    if (closing <= opening) {
-        alert("Closing date must be after opening date");
-        return false;
-    }
+        input[type="submit"] {
+            align-self: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            /* Smooth color transition */
+        }
 
-    return true;
-}
-</script>
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .alert-success {
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+            color: #3c763d;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
+
 <body>
-<?php include 'header1.php'; ?>
-<?php 
-if($date)
-{
-    echo'<div class="alert alert-success" role="alert">
-    Dates have been successfully updated!
-  </div>';
-}
-?>
 
-<div class="container">
-    <h2>Update Important Dates</h2>
-    <form action="date_updates.php" method="post" onsubmit="return validateForm()">
-        <label for="openingDate">Registration Opening Date:</label>
-        <input type="text" id="openingDate" name="openingDate" placeholder="YYYY-MM-DD" required>
+    <?php include 'header1.php'; ?>
 
-        <label for="closingDate">Registration Closing Date:</label>
-        <input type="text" id="closingDate" name="closingDate" placeholder="YYYY-MM-DD" required>
+    <div class="container">
+        <h2><i class="fas fa-calendar-alt"></i> Update Important Dates</h2>
+        <?php
+        if ($dateUpdated) {
+            echo '<div class="alert alert-success" role="alert">
+            Dates have been successfully updated!
+          </div>';
+        }
+        ?>
+        <form action="date_updates.php" method="post" onsubmit="return validateForm()">
+            <div class="input-group">
+                <label class="input-label" for="openingDate">Registration Opening Date:</label>
+                <div>
+                <input type="text" id="openingDate" name="openingDate" placeholder="YYYY-MM-DD" value="<?php echo $previousDates['openingDate']; ?>" required>
+                    <i class="fas fa-calendar-plus" style="color: #FF5733;"></i>
+                    <!-- Adjusted icon color -->
+                </div>
+            </div>
 
-        <label for="hallTicketDate">Hall Ticket Release Date:</label>
-        <input type="text" id="hallTicketDate" name="hallTicketDate" placeholder="YYYY-MM-DD" required>
+            <div class="input-group">
+                <label class="input-label" for="closingDate">Registration Closing Date:</label>
+                <div>
+                    <input type="text" id="closingDate" name="closingDate" placeholder="YYYY-MM-DD" value="<?php echo $previousDates['closingDate']; ?>"required>
+                    <i class="fas fa-calendar-times" style="color: #C70039;"></i>
+                    <!-- Adjusted icon color -->
+                </div>
+            </div>
 
-        <label for="resultsDate">Results Release Date:</label>
-        <input type="text" id="resultsDate" name="resultsDate" placeholder="YYYY-MM-DD" required>
+            <div class="input-group">
+                <label class="input-label" for="hallTicketDate">Hall Ticket Release Date:</label>
+                <div>
+                    <input type="text" id="hallTicketDate" name="hallTicketDate" placeholder="YYYY-MM-DD" value="<?php echo $previousDates['hallTicketDate']; ?>" required>
+                    <i class="fas fa-file-alt" style="color: #FFC300;"></i>
+                    <!-- Adjusted icon color -->
+                </div>
+            </div>
 
-        <input type="submit" value="Submit">
-    </form>
-</div>
-<?php include 'footer.php'; ?>
-</body>
-</html>
+            <div class="input-group">
+                <label class="input-label" for="resultsDate">Results Release Date:</label>
+                <div>
+                    <input type="text" id="resultsDate" name="resultsDate" placeholder="YYYY-MM-DD" value="<?php echo $previousDates['resultsDate']; ?>" required>
+                    <i class="fas fa-poll" style="color: #3498DB;"></i>
+                    <!-- Adjusted icon color -->
+                </div>
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+   
