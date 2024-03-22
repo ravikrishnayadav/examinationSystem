@@ -108,7 +108,7 @@
              <button onclick="window.location.href='form.php'" >Application Form</button>
             <button onclick="window.location.href='print_application_form.html'">Print Application</button>
             <button onclick="window.location.href='down_sample.html'">Download Hall Ticket</button>
-            <button onclick="window.location.href='result_form.html'">Results</button>
+            <button onclick="window.location.href='result_form.php'">Results</button>
         </div>
         </div>
         </div>
