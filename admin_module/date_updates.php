@@ -45,16 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn->close();
 } else {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "lokesh";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include 'conn.php';
 
     $sql = "SELECT * FROM important_dates WHERE id = 1";
     $result = $conn->query($sql);
