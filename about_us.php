@@ -4,15 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABOUT</title>
-    <style>
-        
-
-     
+    <style>       
         body{
             background-color: hsl(186.72deg 93.8% 35.43%); 
         }
-        
-
 .container {
     width: 80%;
     margin: 0 auto;
@@ -65,8 +60,6 @@ h3 {
 
         </div>
     </section>
-
-    <!-- Other sections like services, team, etc. can be added here -->
     <?php include 'footer.php'; ?>
 
     </body>
