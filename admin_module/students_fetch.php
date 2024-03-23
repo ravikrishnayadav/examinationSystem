@@ -192,7 +192,18 @@ if(!isset($_SESSION['loggedin'])) {
 
 <!-- Step 1: Connect to your database -->
 <?php
-include 'conn.php';
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "lokesh";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Step 2: Execute a query to fetch the desired data
 // Step 2: Execute a query to fetch the desired data
