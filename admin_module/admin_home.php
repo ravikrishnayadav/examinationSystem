@@ -58,17 +58,9 @@ if(!isset($_SESSION['loggedin']))
 <body>
 <?php include 'header1.php'; ?>
 
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "lokesh";
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+<?
+// Include the database connection file
+include 'conn.php';
 
 // Query to get the number of students registered
 $sql_students = "SELECT COUNT(*) as total_students FROM registrations";
