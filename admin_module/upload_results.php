@@ -108,10 +108,7 @@ $alert=false;
                     echo "<br>Error: CSV file column names do not match the expected format.";
                 } else {
                     // Perform database insertion
-                    $conn = new mysqli('localhost', 'root', '', 'lokesh');
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
+                    include 'conn.php';
 
                     $handle = fopen($file, "r");
                     fgetcsv($handle, 1000, ","); // Skip the header row

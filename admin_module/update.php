@@ -3,11 +3,7 @@ $update=false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Establish database connection (replace with your own credentials)
     
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "lokesh";
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    include 'conn.php';
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);

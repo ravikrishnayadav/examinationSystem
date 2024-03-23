@@ -96,18 +96,7 @@
             <option value="">All Times</option>
             <?php
             // Database connection
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $database = "lokesh";
-
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $database);
-
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+            include 'conn.php';
 
             // SQL query to fetch unique exam times
             $sql = "SELECT DISTINCT exam_time FROM exam_schedule";

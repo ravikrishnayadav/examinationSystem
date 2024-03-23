@@ -12,18 +12,7 @@
         <h2>Edit Candidate</h2>
         <?php
         // Step 1: Connect to your database
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "lokesh";
-
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        include 'conn.php';
 
         // Step 2: Retrieve the serial number from the URL
         $sno = $_GET['sno'];

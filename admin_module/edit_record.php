@@ -4,18 +4,7 @@ $update=false;
 $alert=false;
 
 // Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "lokesh";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'conn.php';
 
 // Retrieve the record ID from the URL
 $id = $_GET["id"];

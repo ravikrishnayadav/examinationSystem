@@ -39,10 +39,7 @@
     <!-- Display table of results -->
     <?php
     // Database connection
-    $conn = new mysqli('localhost', 'root', '', 'lokesh');
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include 'conn.php';
 
     // SQL query to fetch all data from the table
     $sql = "SELECT * FROM results";
