@@ -56,8 +56,6 @@ h3 {
             <P>The College campus is located 7 K.M. away from Kadapa town on Kadapa to Pulivendula Highway in a calm and salubrious area of 35 acres. The College is set in a serene environment with lush greenery and fresh air. Four multi-storeyed RCC structures measuring 26,700 sqm provide accommodation for the departments. The College has dedicated electric power feeder and 250 KVA substation. Other capital resources include transport vehicles and four hostels. Excellent Bus facilities exist from Kadapa to Hyderabad, Vijayawada, Nellore, Tirupati, Kurnool, Bangalore, Chittoor and Chennai.</P>
 
             <img src="clgphoto.jpg">
-
-
         </div>
     </section>
     <?php include 'footer.php'; ?>
