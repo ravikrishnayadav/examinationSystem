@@ -1,16 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "lokesh";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'admin_module/conn.php';
 if(isset($_POST['form_submit'])){ // Check if form is submitted
   $reg_no = $_POST['reg_no'];
   $dob = $_POST['dob']; 

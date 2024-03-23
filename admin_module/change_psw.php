@@ -7,16 +7,7 @@ require 'phpmailer/src/Exception.php';
 require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/SMTP.php';
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "lokesh";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'conn.php';
 if(isset($_POST['form_submit'])){
 $sql = "SELECT * FROM admin_password where sno=1";
 $result = $conn->query($sql);
