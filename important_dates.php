@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABOUT</title>
     <style>
-   
-    
-        
-
-
-
-
 body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
@@ -54,8 +47,6 @@ body {
             font-weight: bold;
             margin-bottom: 5px;
         }
-      
-
         </style>
 
 <?php include 'header.php'; ?>
@@ -63,26 +54,12 @@ body {
 </head>
 <body>
     
-
-
-   
     <div class="containers">
         <h2>Important Dates</h2>
         <div class="important-dates">
             <?php
             // Establish database connection (replace with your own credentials)
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "lokesh";
-
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+            include 'admin_module/conn.php';
 
             // SQL query to fetch dates from the database
             $sql = "SELECT * FROM important_dates WHERE id = 1";
